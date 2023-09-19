@@ -46,7 +46,7 @@ $sinhvien = array(
 # mảng kết hợp
 $sinh_vien = [
     'sinh_vien1' => "Trần Quang Tuấn",
-    'sinh_vien2' => "Trần Thanh an"
+    'sinh_vien2'                  => "Trần Thanh an"
 ];
 #Mảng lồng nhau
 
