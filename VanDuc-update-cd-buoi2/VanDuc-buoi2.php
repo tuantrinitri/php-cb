@@ -66,4 +66,11 @@ $smallestArr1 = array_slice($arr1, 0, 3);
 $average = array_sum($smallestArr1) / count($smallestArr1);
 
 echo " Trung bình cộng của 3 số nhỏ nhất trong mảng 1: $average\n";
+echo "ahihihihihihih";
 ?>
+
+
+
+
+
+
