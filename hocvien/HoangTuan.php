@@ -40,18 +40,40 @@ class User
         $this->db = $db;
     }
 
-    public function create($username, $password, $fullname)
+    public function getNextId()
     {
         try {
             $conn = $this->db->getConnection();
-            $query = "INSERT INTO users (username, password, fullname) VALUES (?, ?, ?)";
-            $stmt = $conn->prepare($query);
-            $stmt->execute([$username, $password, $fullname]);
-            echo "Thêm thành công!";
+            $query = "SELECT MAX(id) AS max_id FROM users";
+            $stmt = $conn->query($query);
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+            $nextId = $result['max_id'] + 1;
+            return $nextId;
+        } catch (PDOException $e) {
+            echo "Lỗi: " . $e->getMessage();
+            return false;
+        }
+    }
+
+    public function create($username, $password, $fullname)
+    {
+        try {
+            $nextId = $this->getNextId();
+            if ($nextId !== false) {
+                $conn = $this->db->getConnection();
+                $query = "INSERT INTO users (id, username, password, fullname) VALUES (?, ?, ?, ?)";
+                $stmt = $conn->prepare($query);
+                $stmt->execute([$nextId, $username, $password, $fullname]);
+                echo "Thêm thành công! ID: " . $nextId;
+            } else {
+                echo "Không thể lấy ID.";
+            }
         } catch (PDOException $e) {
             echo "Lỗi: " . $e->getMessage();
         }
     }
+
+
 
     public function read()
     {
@@ -68,30 +90,58 @@ class User
     }
 
     public function update($id, $username, $password, $fullname)
-    {
-        try {
-            $conn = $this->db->getConnection();
+{
+    try {
+        $conn = $this->db->getConnection();
+
+        // Kiểm tra xem ID đã tồn tại trong bảng users hay không
+        if ($this->isIdExists($id)) {
             $query = "UPDATE users SET username=?, password=?, fullname=? WHERE id=?";
             $stmt = $conn->prepare($query);
             $stmt->execute([$username, $password, $fullname, $id]);
             echo "Cập nhật thành công!";
-        } catch (PDOException $e) {
-            echo "Lỗi: " . $e->getMessage();
+        } else {
+            echo "Lỗi: ID không tồn tại!";
         }
+    } catch (PDOException $e) {
+        echo "Lỗi: " . $e->getMessage();
     }
+}
 
-    public function delete($id)
-    {
-        try {
-            $conn = $this->db->getConnection();
+public function delete($id)
+{
+    try {
+        $conn = $this->db->getConnection();
+
+        // Kiểm tra xem ID đã tồn tại trong bảng users hay không
+        if ($this->isIdExists($id)) {
             $query = "DELETE FROM users WHERE id=?";
             $stmt = $conn->prepare($query);
             $stmt->execute([$id]);
             echo "Xóa thành công!";
-        } catch (PDOException $e) {
-            echo "Lỗi: " . $e->getMessage();
+        } else {
+            echo "Lỗi: ID không tồn tại!";
         }
+    } catch (PDOException $e) {
+        echo "Lỗi: " . $e->getMessage();
     }
+}
+
+private function isIdExists($id)
+{
+    try {
+        $conn = $this->db->getConnection();
+        $query = "SELECT COUNT(*) FROM users WHERE id = ?";
+        $stmt = $conn->prepare($query);
+        $stmt->execute([$id]);
+        $count = $stmt->fetch(PDO::FETCH_COLUMN);
+        return $count > 0;
+    } catch (PDOException $e) {
+        echo "Lỗi: " . $e->getMessage();
+        return false;
+    }
+}
+
 }
 
 // Sử dụng các class trên
@@ -108,5 +158,5 @@ $user = new User($db);
 // Ví dụ sử dụng:
 // $user->create('newuser', 'password123', 'New User');
 // $users = $user->read();
-// $user->update(2, 'updateduser', 'newpassword', 'Updated User');
+// $user->update(6, 'updateduser', 'newpassword', 'Updated User');
 // $user->delete(2);
