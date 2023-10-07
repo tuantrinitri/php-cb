@@ -1,9 +1,9 @@
 <?php
 class Database {
     private $host = 'localhost';
-    private $databaseName = 'bai_tap_anh_tuan';
+    private $databaseName = 'learning_php';
     private $username = 'root';
-    private $password = '';
+    private $password = 'admin@1234';
 
     protected $conn;
 
