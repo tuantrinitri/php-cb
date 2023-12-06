@@ -1,9 +1,0 @@
-###VIM editor
-#### get repo || kéo 1 repo
-git clone "url- https|ssh"
-
-### change file, CRUD file command
-1: git pull origin "nhánh chính"  develop || main
-2. git add . // câu lệnh nguy hiểm nếu không biết quản lý dự án 
-3: git commit -m "noi dung commit" // phải có vắn tắt có ý nghĩa đối với nội dung làm việc
-4: git push || git push origin "nhánh cuar mình" 
