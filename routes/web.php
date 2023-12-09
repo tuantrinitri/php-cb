@@ -3,7 +3,8 @@
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\CategoryController as CategoryController;
 use App\Http\Controllers\Admin\NewController as NewController;
-use App\Http\Controllers\Fontend;
+use App\Http\Controllers\Fontend\FontendController ;
+use App\Http\Controllers\Admin\TableController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,9 +23,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => '/admin'], function () {
     Route::get('/', [AdminController::class, 'index'])->name('admin.index'); // dashboard
-
-
-
     /**
      *
      * Route for category
@@ -56,6 +54,9 @@ Route::group(['prefix' => '/admin'], function () {
 });
 
 // Route area Client || Fontend
-Route::group(['prefix' => '/'], function () {
-    Route::get('/', [Fontend\FontendController::class, 'index'])->name('home'); // Titan
+Route::group(['prefix'=>"/"],function(){
+    Route::get('/',[FontendController::class,'index'])->name('home'); //titan
+});
+Route::group(['prefix'=>'/table'],function(){
+    Route::get('/',[TableController::class,'index'])->name('admin.tab.index');
 });
