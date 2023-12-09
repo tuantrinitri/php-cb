@@ -11,8 +11,8 @@ class NewController extends Controller
 {
     public function index()
     {
-        dd(1);
-        #code here
+        
+        return view("admin.news.index");
     }
 
     public function create()
