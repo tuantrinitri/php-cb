@@ -2,8 +2,10 @@
 
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\CategoryController as CategoryController;
-use App\Http\Controllers\Admin\NewController as NewController;
+use App\Http\Controllers\Admin\PostController as PostController;
+use App\Http\Controllers\Auth\AuthController as AuthController;
 use App\Http\Controllers\Fontend;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -43,13 +45,13 @@ Route::group(['prefix' => '/admin'], function () {
      * Route for new
      */
 
-    Route::group(['prefix' => '/new'], function () {
-        Route::get('/', [NewController::class, 'index'])->name('admin.new.index');
-        Route::get('/create', [NewController::class, 'create'])->name('admin.new.create');
-        Route::post('/create', [NewController::class, 'store'])->name('admin.new.create');
-        Route::get('/edit/{id}', [NewController::class, 'edit'])->name('admin.new.edit');
-        Route::post('/edit/{id}', [NewController::class, 'update'])->name('admin.new.edit');
-        Route::delete('/delete/{id}', [NewController::class, 'store'])->name('admin.new.edit');
+    Route::group(['prefix' => '/post'], function () {
+        Route::get('/', [PostController::class, 'index'])->name('admin.post.index');
+        Route::get('/create', [PostController::class, 'create'])->name('admin.post.create');
+        Route::post('/create', [PostController::class, 'store'])->name('admin.post.create');
+        Route::get('/edit/{id}', [PostController::class, 'edit'])->name('admin.post.edit');
+        Route::post('/edit/{id}', [PostController::class, 'update'])->name('admin.post.edit');
+        Route::delete('/delete/{id}', [PostController::class, 'store'])->name('admin.post.edit');
     });
 
 
@@ -59,3 +61,8 @@ Route::group(['prefix' => '/admin'], function () {
 Route::group(['prefix' => '/'], function () {
     Route::get('/', [Fontend\FontendController::class, 'index'])->name('home'); // Titan
 });
+
+
+Route::get('/login', [AuthController::class, 'login'])->name('auth.login');
+Route::post('/login', [AuthController::class, 'postlogin'])->name('auth.login');
+Route::get('/logout', [AuthController::class, 'logout'])->name('auth.logout');

@@ -3,22 +3,22 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Category;
+use App\Models\Post;
 use Illuminate\Http\Request;
 
 
-class NewController extends Controller
+class PostController extends Controller
 {
     public function index()
     {
-        
-        return view("admin.news.index");
+        $posts = Post::get();
+        return view("admin.posts.index");
     }
 
     public function create()
     {
-        $categories = Category::get();
-        return view("admin.news.index", compact("categories"));
+        $categories = Post::get();
+        return view("admin.posts.index", compact("posts"));
     }
 
 

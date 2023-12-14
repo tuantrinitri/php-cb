@@ -19,11 +19,11 @@ return new class extends Migration
             $table->string('url');
             $table->text('description')->nullable();
             $table->longText('content');
-            $table->string('categories');
+            $table->unsignedInteger('category_id');
             $table->string('tags')->nullable();
             $table->string('author')->nullable();
             $table->string('source')->nullable();
-            $table->boolean('status');
+            $table->unsignedInteger('status')->default(1);
             $table->timestamps();
         });
     }
