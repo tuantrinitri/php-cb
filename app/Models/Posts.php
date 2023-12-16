@@ -19,6 +19,7 @@ class Posts extends Model
         'author',
         'source',
         'status',
+        'delete_at',
         'create_at',
         'update_at',
     ];

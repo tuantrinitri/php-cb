@@ -7,7 +7,7 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 
 
-class NewController extends Controller
+class PostsController extends Controller
 {
     public function index()
     {

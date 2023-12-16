@@ -2,9 +2,11 @@
 
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\CategoryController as CategoryController;
-use App\Http\Controllers\Admin\NewController as NewController;
+use App\Http\Controllers\Admin\PostsController;
 use App\Http\Controllers\Fontend\FontendController ;
 use App\Http\Controllers\Admin\TableController;
+use App\Http\Controllers\Auth\AuthController;
+use App\Models\Posts;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -42,12 +44,12 @@ Route::group(['prefix' => '/admin'], function () {
      */
 
     Route::group(['prefix' => '/new'], function () {
-        Route::get('/', [NewController::class, 'index'])->name('admin.new.index');
-        Route::get('/create', [NewController::class, 'create'])->name('admin.new.create');
-        Route::post('/create', [NewController::class, 'store'])->name('admin.new.create');
-        Route::get('/edit/{id}', [NewController::class, 'edit'])->name('admin.new.edit');
-        Route::post('/edit/{id}', [NewController::class, 'update'])->name('admin.new.edit');
-        Route::delete('/delete/{id}', [NewController::class, 'store'])->name('admin.new.edit');
+        Route::get('/', [PostsController::class, 'index'])->name('admin.new.index');
+        Route::get('/create', [PostsController::class, 'create'])->name('admin.new.create');
+        Route::post('/create', [PostsController::class, 'store'])->name('admin.new.create');
+        Route::get('/edit/{id}', [PostsController::class, 'edit'])->name('admin.new.edit');
+        Route::post('/edit/{id}', [PostsController::class, 'update'])->name('admin.new.edit');
+        Route::delete('/delete/{id}', [PostsController::class, 'store'])->name('admin.new.edit');
     });
 
 
@@ -60,3 +62,6 @@ Route::group(['prefix'=>"/"],function(){
 Route::group(['prefix'=>'/table'],function(){
     Route::get('/',[TableController::class,'index'])->name('admin.tab.index');
 });
+Route::get('/login',[AuthController::class,'login'])->name('auth.login'); 
+Route::post('/login',[AuthController::class,'postLogin'])->name('auth.login'); 
+Route::get('/logout',[AuthController::class,'logout'])->name('auth.logout'); 
