@@ -133,8 +133,8 @@ span.psw {
 
 <div id="id01" class="modal">
   
-  <form class="modal-content animate" action="{{ route('admin.index') }}" method="get">
-    {{ csrf_field() }}
+  <form class="modal-content animate" action="{{ route('auth.login') }}" method="post">
+  @csrf
     <div class="imgcontainer">
       <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
       <img src="{{ asset('assets/admin/images/3x4.jpg') }}" alt="Avatar" class="avatar">
@@ -142,10 +142,10 @@ span.psw {
 
     <div class="container">
       <label for="uname"><b>Username</b></label>
-      <input type="text" placeholder="Enter Username" name="email" required>
+      <input type="text" placeholder="Enter Username" name="email" value="admin@demo.com" required>
 
       <label for="psw"><b>Password</b></label>
-      <input type="password" placeholder="Enter Password" name="password" required>
+      <input type="password" placeholder="Enter Password" name="password" value="123456" required>
         
       <button type="submit">Login</button>
       <label>

@@ -22,8 +22,8 @@ use Illuminate\Support\Facades\Route;
 
 // Route area Admin
 
-Route::group(['prefix' => '/admin'], function () {
-    Route::get('/', [AdminController::class, 'index'])->name('admin.index'); // dashboard
+Route::group(['prefix' => '/admin', 'middleware'=>'auth'], function () {
+    Route::get('/', [AdminController::class, 'index'])->name('admin.index');// dashboard
 
 
 

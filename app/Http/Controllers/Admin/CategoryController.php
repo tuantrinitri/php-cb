@@ -12,7 +12,22 @@ class CategoryController extends Controller
     {
         $title_website = 'Danh sách danh mục';
         $categories = Category::get(); // database
+        // dd($categories);
+        // 0123;
+        // 1234;
+        $n=[1,2,3,4];
+        for($i=0;$i<=$n;$i++){
+            dd($n[$i]);
+        }
+        foreach($categories as $key=>$values)
+        {
+            if($key==1){
+                dd($values);
+            }
+            
+            // 54321;
 
+        }
         return view('admin.news.category.index', compact('title_website','categories')); // view
     }
 
